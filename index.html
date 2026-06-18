@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">BP</div>
+        <div>
+          <h1>Biblioteca Pro</h1>
+          <p>Gestión de biblioteca</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <button class="nav-item active" data-section="dashboard">Dashboard</button>
+        <button class="nav-item" data-section="books">Libros</button>
+        <button class="nav-item" data-section="users">Usuarios</button>
+        <button class="nav-item" data-section="loans">Préstamos</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <span>hecho por kennedy.ds3</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sistema administrativo</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <button id="refreshBtn" class="icon-btn" aria-label="Refrescar datos">↻</button>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span>Libros</span>
+            <strong id="countBooks">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Disponibles</span>
+            <strong id="countAvailable">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Usuarios</span>
+            <strong id="countUsers">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Préstamos activos</span>
+            <strong id="countLoans">0</strong>
+          </article>
+          <article class="stat-card alert">
+            <span>Vencidos</span>
+            <strong id="countLate">0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section id="books" class="section">
+        <div class="section-header">
+          <div>
+            <h3>Gestión de Libros</h3>
+            <p>Crear, editar y eliminar registros.</p>
+          </div>
+          <button id="openBookModal" class="primary-btn">+ Nuevo libro</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>ISBN</th>
+                <th>Estado</th>
+                <th>Prestado a</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="booksTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="users" class="section">
+        <div class="section-header">
+          <div>
+            <h3>Usuarios</h3>
+            <p>Registra estudiantes con carnet y teléfono.</p>
+          </div>
+        </div>
+
+        <div class="loan-grid">
+          <div class="loan-panel">
+            <h4>Nuevo usuario</h4>
+            <form id="userForm" class="form-grid">
+              <input type="hidden" id="userId">
+              <label>
+                Carnet
+                <input id="userCarnet" type="text" placeholder="Ej. 2024-001" required>
+              </label>
+              <label>
+                Nombre completo
+                <input id="userName" type="text" placeholder="Ej. Ana López" required>
+              </label>
+              <label>
+                Teléfono
+                <input id="userPhone" type="text" placeholder="Ej. 8888-0000">
+              </label>
+              <div class="modal-actions">
+                <button type="submit" class="primary-btn">Guardar usuario</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="loan-panel">
+            <h4>Usuarios registrados</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Carnet</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="loans" class="section">
+        <div class="section-header">
+          <div>
+            <h3>Préstamos</h3>
+            <p>Asigna libros, controla vencimientos y registra devoluciones.</p>
+          </div>
+        </div>
+
+        <div class="loan-grid">
+          <div class="loan-panel">
+            <h4>Nuevo préstamo</h4>
+            <form id="loanForm" class="form-grid">
+              <label>
+                Libro
+                <select id="loanBook" required></select>
+              </label>
+              <label>
+                Usuario
+                <select id="loanUser" required></select>
+              </label>
+              <label>
+                Fecha de préstamo
+                <input id="loanDate" type="date" required>
+              </label>
+              <label>
+                Fecha de vencimiento
+                <input id="loanDueDate" type="date" required>
+              </label>
+              <label>
+                Observaciones (opcional)
+                <input id="loanNotes" type="text" placeholder="Observaciones opcionales">
+              </label>
+              <div class="modal-actions">
+                <button type="submit" class="primary-btn">Prestar libro</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="loan-panel">
+            <h4>Préstamos registrados</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Libro</th>
+                    <th>Usuario</th>
+                    <th>Prestado</th>
+                    <th>Vence</th>
+                    <th>Observaciones</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="loansTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Formulario</p>
+          <h3 id="modalTitle">Nuevo libro</h3>
+        </div>
+        <button id="closeModal" class="icon-btn" aria-label="Cerrar modal">×</button>
+      </div>
+
+      <form id="bookForm" class="form-grid">
+        <input type="hidden" id="bookId">
+        <label>
+          Título
+          <input id="bookTitle" name="title" placeholder="Ej. Cien años de soledad" required>
+        </label>
+        <label>
+          Autor
+          <input id="bookAuthor" name="author" placeholder="Ej. Gabriel García Márquez" required>
+        </label>
+        <label>
+          ISBN
+          <input id="bookIsbn" name="isbn" placeholder="Ej. 9780307474728">
+        </label>
+        <label>
+          Estado
+          <select id="bookStatus" name="status">
+            <option>Disponible</option>
+            <option>Prestado</option>
+            <option>Mantenimiento</option>
+          </select>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelBook" class="secondary-btn">Cancelar</button>
+          <button type="submit" class="primary-btn">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
